@@ -17,8 +17,6 @@ void reaction_init(struct reaction *reaction) {
 void reaction_h(struct reaction *reaction) {
 	lock_acquire(&reaction->reaction_lock);
 	reaction->n_H++;
-	if(reaction->n_O>1)
-	{	
 	if(reaction->n_H>=2&&reaction->n_O>=1)
 	{
 		make_water();
@@ -29,7 +27,6 @@ void reaction_h(struct reaction *reaction) {
 	}
 	else 
 		cond_wait(&reaction->gotH,&reaction->reaction_lock);
-	}
 	lock_release(&reaction->reaction_lock);	
 }
 void reaction_o(struct reaction *reaction) {
